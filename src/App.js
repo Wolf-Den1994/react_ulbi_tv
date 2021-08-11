@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import PostList from './components/PostList';
 import MyButton from './components/UI/button/MyButton';
 import MyInput from './components/UI/input/MyInput';
@@ -10,20 +10,12 @@ function App() {
     { id: 2, title: 'JavaScript 2', body: 'Description 2' },
     { id: 3, title: 'JavaScript 3', body: 'Description 3' },
   ]);
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+  const [post, setPost] = useState({ title: '', body: '' });
 
   const addNewPost = (e) => {
     e.preventDefault();
-    const newPost = {
-      id: Date.now(),
-      title,
-      body,
-    };
-    console.log(newPost);
-    setPosts([...posts, newPost]);
-    setTitle('');
-    setBody('');
+    setPosts([...posts, { ...post, id: Date.now() }]);
+    setPost({ title: '', body: '' });
   };
 
   return (
@@ -31,15 +23,15 @@ function App() {
       <form>
         {/* Управляемый компонент */}
         <MyInput
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={post.title}
+          onChange={(e) => setPost({ ...post, title: e.target.value })}
           type="text"
           placeholder="Название поста"
         />
         {/* УЖЕ управляемый компонент */}
         <MyInput
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
+          value={post.body}
+          onChange={(e) => setPost({ ...post, body: e.target.value })}
           type="text"
           placeholder="Описание поста"
         />

@@ -8,11 +8,7 @@ import { usePosts } from './hooks/usePosts';
 import './styles/App.css';
 
 function App() {
-  const [posts, setPosts] = useState([
-    { id: 1, title: 'аа', body: 'бб' },
-    { id: 2, title: 'гг 2', body: 'аа' },
-    { id: 3, title: 'вв 3', body: 'яя' },
-  ]);
+  const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ sort: '', query: '' });
   const [modal, setModal] = useState(false);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);

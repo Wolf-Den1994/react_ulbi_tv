@@ -4,12 +4,13 @@ import About from '../pages/About';
 import Error from '../pages/Error';
 import PostIdPage from '../pages/PostIdPage';
 import Posts from '../pages/Posts';
-import { routes } from './router';
+import { privatRoutes, publicRoutes } from './router';
 
 const AppRouter = () => {
-  return (
+  const isAuth = false;
+  return isAuth ? (
     <Switch>
-      {routes.map((route) => (
+      {privatRoutes.map((route) => (
         <Route
           component={route.component}
           path={route.path}
@@ -17,6 +18,17 @@ const AppRouter = () => {
         />
       ))}
       <Redirect to="/posts" />
+    </Switch>
+  ) : (
+    <Switch>
+      {publicRoutes.map((route) => (
+        <Route
+          component={route.component}
+          path={route.path}
+          exact={route.exact}
+        />
+      ))}
+      <Redirect to="/login" />
     </Switch>
   );
 };

@@ -8,12 +8,12 @@ const PostIdPage = () => {
   const params = useParams();
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
-  const [fetchPostById, isLoading, error] = useFetching(async (id) => {
+  const [fetchPostById, isLoading] = useFetching(async (id) => {
     const response = await PostServise.getById(id);
     setPost(response.data);
   });
 
-  const [fetchComments, isComLoading, comError] = useFetching(async (id) => {
+  const [fetchComments, isComLoading] = useFetching(async (id) => {
     const response = await PostServise.getCommentsByPostId(id);
     setComments(response.data);
   });
@@ -21,6 +21,7 @@ const PostIdPage = () => {
   useEffect(() => {
     fetchPostById(params.id);
     fetchComments(params.id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
